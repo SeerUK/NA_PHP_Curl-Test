@@ -75,7 +75,7 @@
 			/* Commenting on an 'Issue':
 			 * ========================= */
 			case 'IssueCommentEvent':
-				$arrFeed[$i]['details'].= 'commented on';
+				$arrFeed[$i]['details'].= 'commented on ';
 				break;
 
 			/* Pushing to a Branch -> Repository:
