@@ -48,12 +48,6 @@
 		 * ==================================== */
 		switch ( $objItem->type ) 
 		{
-			/* Pushing to a Branch -> Repository:
-			 * ================================== */
-			case 'PushEvent':
-				$arrFeed[$i]['details'].= 'pushed to';
-				break;
-
 			/* Creating Branches / Repositories:
 			 * ================================= */
 			case 'CreateEvent':
@@ -67,8 +61,15 @@
 						$arrFeed[$i]['details'].= 'created ' . $objItem->payload->ref_type . ' <a target="_blank" href="https://github.com/' . $objItem->repo->name . '">' . $objItem->repo->name . '</a>';
 						break;
 					default:
+						$arrFeed[$i]['details'].= 'created a ' . $objItem->payload->ref_type;
 						break;
 				}
+				break;
+
+			/* Creating / Editing Gists:
+			 * ========================= */
+			case 'GistEvent':
+				$arrFeed[$i]['details'].= 'created gist <a target="_blank" href="' . $objItem->payload->gist->html_url . '">' . $objItem->payload->gist->html_url . '</a>';
 				break;
 
 			/* Commenting on an 'Issue':
@@ -77,10 +78,10 @@
 				$arrFeed[$i]['details'].= 'commented on';
 				break;
 
-			/* Creating a gist:
-			 * ================ */
-			case 'GistEvent':
-				$arrFeed[$i]['details'].= 'created gist <a target="_blank" href="' . $objItem->payload->gist->html_url . '">' . $objItem->payload->gist->html_url . '</a>';
+			/* Pushing to a Branch -> Repository:
+			 * ================================== */
+			case 'PushEvent':
+				$arrFeed[$i]['details'].= 'pushed to';
 				break;
 
 			/* Unhandled events:
